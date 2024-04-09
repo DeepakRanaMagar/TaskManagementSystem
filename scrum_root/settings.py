@@ -31,25 +31,25 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    # 'django.contrib.admin',
+    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
-    # 'django.contrib.sessions',
-    # 'django.contrib.messages',
+    'django.contrib.sessions',
+    'django.contrib.messages',
     'django.contrib.staticfiles',
-    'restframework',
-    'restframework.authtoken',
+    'rest_framework',
+    'rest_framework.authtoken',
 
-    'board.Apps.BoardConfig', #App
+    'board.apps.BoardConfig', #App
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    # 'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-    # 'django.contrib.auth.middleware.AuthenticationMiddleware',
-    # 'django.contrib.messages.middleware.MessageMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
@@ -85,10 +85,12 @@ WSGI_APPLICATION = 'scrum_root.wsgi.application'
 # }
 DATABASES = {
     'default': {
-        'ENIGNE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'scrumdb',
-        
-
+        'USER': 'scrumadmin',
+        'PASSWORD': 'scrumadmin123',
+        'PORT': '5432',
+        'HOST':'127.0.0.1',
     }
 }
 
