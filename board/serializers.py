@@ -46,6 +46,7 @@ class SprintSerializer(serializers.Serializer):
             'name',
             'description',
             'end_date',
+            'links',
         ]
     
     def get_links(self,obj):
@@ -85,6 +86,7 @@ class TaskSerializers(serializers.ModelSerializer):
             'start_date',
             'due_date',
             'completed_date',
+            'links',
         ]
     
     def get_status_display(self, obj):
@@ -107,5 +109,6 @@ class TaskSerializers(serializers.ModelSerializer):
             )
         if obj.assigned:
             links['assigned'] = reverse(
-                'user-detail', 
+                'user-detail', kwargs={User.USERNAME_FIELD:obj.assigned}, request=request
             )
+        return links
