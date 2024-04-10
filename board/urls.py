@@ -8,6 +8,4 @@ router.register(r'sprints', SprintViewSet)
 router.register(r'tasks', TaskViewSet)
 router.register(r'users', UserViewSet)
 
-urlpatterns = [
-    path('', )
-]+router.urls
+urlpatterns =[]+ router.urls

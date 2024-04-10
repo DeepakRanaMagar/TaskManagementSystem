@@ -22,7 +22,7 @@ class Task(models.Model):
     STATUS_DONE = 4
 
     STATUS_CHOICES = (
-        (STATUS_TODO, _('Not Started')),
+        (STATUS_TODO, _('NOT STARTED')),
         (STATUS_IN_PROGRESS, _('WORKING ON')),
         (STATUS_TESTING, _('TESTING')),
         (STATUS_DONE, _('FINISHED')),
