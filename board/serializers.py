@@ -37,7 +37,7 @@ class UserSerializers(serializers.ModelSerializer):
 
 
 
-class SprintSerializer(serializers.Serializer):
+class SprintSerializer(serializers.ModelSerializer):
     links = serializers.SerializerMethodField('get_links')
     class Meta: 
         model = Sprint
