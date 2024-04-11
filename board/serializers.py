@@ -2,6 +2,8 @@ from rest_framework import serializers
 from .models import Sprint, Task
 from django.contrib.auth import get_user_model
 from rest_framework.reverse import reverse
+from datetime import date
+from django.utils.translation import gettext_lazy as _
 
 User = get_user_model()
 
@@ -74,7 +76,9 @@ class SprintSerializer(serializers.ModelSerializer):
                         request=request
                     ) + '?sprint={}'.format(obj.pk),
         }
+    def validate_due_date(self, attrs, source):
         
+            
 
 
 class TaskSerializers(serializers.ModelSerializer):
@@ -126,3 +130,5 @@ class TaskSerializers(serializers.ModelSerializer):
                 'user-detail', kwargs={User.USERNAME_FIELD:obj.assigned}, request=request
             )
         return links
+    
+    
