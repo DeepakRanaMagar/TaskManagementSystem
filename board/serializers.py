@@ -19,6 +19,7 @@ class UserSerializers(serializers.ModelSerializer):
             User.USERNAME_FIELD,
             'full_name',
             'is_active',
+            'links',
         )
     
     def get_links(self,obj):
