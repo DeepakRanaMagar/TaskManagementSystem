@@ -32,7 +32,7 @@ class SprintViewSet(DefaultsMixin, viewsets.ModelViewSet):
     filter_class = SprintFilter
     search_fields = ('name',)
     ordering_fields = (
-        'ends',
+        'end_date',
         'name',
     )
 
