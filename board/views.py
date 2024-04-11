@@ -4,6 +4,8 @@ from .models import Sprint, Task
 from .serializers import SprintSerializer, TaskSerializers, UserSerializers
 from django.contrib.auth import get_user_model
 from django_filters.rest_framework import DjangoFilterBackend
+from .forms import TaskFilter, SprintFilter
+
 
 User = get_user_model()
 
@@ -27,6 +29,7 @@ class DefaultsMixin(object):
 class SprintViewSet(DefaultsMixin, viewsets.ModelViewSet):
     queryset = Sprint.objects.order_by('end_date')
     serializer_class = SprintSerializer
+    filter_class = SprintFilter
     search_fields = ('name',)
     ordering_fields = (
         'ends',
@@ -36,8 +39,18 @@ class SprintViewSet(DefaultsMixin, viewsets.ModelViewSet):
 class TaskViewSet(DefaultsMixin, viewsets.ModelViewSet):
     queryset = Task.objects.all()
     serializer_class = TaskSerializers
+    filter_class = TaskFilter
+
     search_fields = (
-        ''
+        'name',
+        'description',
+    )
+    ordering_fields = (
+        'name',
+        'order',
+        'start_date',
+        'due_date',
+        'completed_date',
     )
 
 class UserViewSet(viewsets.ReadOnlyModelViewSet):
@@ -45,4 +58,6 @@ class UserViewSet(viewsets.ReadOnlyModelViewSet):
     lookup_url_kwarg = User.USERNAME_FIELD
     queryset = User.objects.order_by(User.USERNAME_FIELD)
     serializer_class = UserSerializers
-
+    search_fields = (
+        'User.USERNAME_FIELD',
+    )

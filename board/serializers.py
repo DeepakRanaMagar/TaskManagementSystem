@@ -27,12 +27,21 @@ class UserSerializers(serializers.ModelSerializer):
         username = obj.get_username()
         return {
             'self': reverse(
-                'user-detail',
-                kwargs = {
-                    User.USERNAME_FIELD: username
-                },
-            request = request
-            )
+                        'user-detail',
+                        kwargs = {
+                            User.USERNAME_FIELD: username
+                        },
+                        request = request
+                    ),
+            'tasks': reverse(
+                        '{}?assigned={}'.format(
+                            reverse(
+                                'task-list',
+                                request=request
+                            ),
+                            username
+                        )
+                    )
         }
 
 
@@ -54,12 +63,16 @@ class SprintSerializer(serializers.ModelSerializer):
         request = self.context['request']
         return {
             'self': reverse(
-                'sprint-detail',
-                kwargs = {
-                    'pk': obj.pk
-                },
-            request = request
-            )
+                        'sprint-detail',
+                        kwargs = {
+                            'pk': obj.pk
+                        },
+                        request = request
+                    ),
+            'tasks': reverse(
+                        'tasks-list',
+                        request=request
+                    ) + '?sprint={}'.format(obj.pk),
         }
         
 
