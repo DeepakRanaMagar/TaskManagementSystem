@@ -35,15 +35,13 @@ class UserSerializers(serializers.ModelSerializer):
                         },
                         request = request
                     ),
-            'tasks': reverse(
-                        '{}?assigned={}'.format(
+            'tasks':'{}?assigned={}'.format(
                             reverse(
                                 'task-list',
                                 request=request
                             ),
                             username
                         )
-                    )
         }
 
 
@@ -71,11 +69,11 @@ class SprintSerializer(serializers.ModelSerializer):
                         },
                         request = request
                     ),
-            'tasks': reverse(
-                        'tasks-list',
-                        request=request
+            'task': reverse(
+                        'tasks-list',request=request
                     ) + '?sprint={}'.format(obj.pk),
         }
+    
     def validate_end_date(self, attrs, source):
         end_date = attrs[source]
         new = not self.object
