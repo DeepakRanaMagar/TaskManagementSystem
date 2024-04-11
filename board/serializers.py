@@ -69,8 +69,8 @@ class SprintSerializer(serializers.ModelSerializer):
                         },
                         request = request
                     ),
-            'task': reverse(
-                        'tasks-list',request=request
+            'tasks': reverse(
+                        'task-list',request=request
                     ) + '?sprint={}'.format(obj.pk),
         }
     
