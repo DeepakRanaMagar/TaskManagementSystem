@@ -74,15 +74,14 @@ class SprintSerializer(serializers.ModelSerializer):
                     ) + '?sprint={}'.format(obj.pk),
         }
     
-    def validate(self, data):
-        if data['end_date'] < date.today():
-            return  serializers.ValidationError({
-                "end_date":"Invalid End Date"
-            })
-        # if(new or changed) and (end_date<date.today()):
-        #     msg = _('Invalid End Date.')
-        #     raise serializers.ValidationError(msg) 
-        # return attrs
+    def validate(self,attrs):
+        '''
+            Validate the Sprint End_date
+        '''
+        instance = Sprint(**attrs)
+        instance.clean()
+        return attrs
+
 
 class TaskSerializers(serializers.ModelSerializer):
     links = serializers.SerializerMethodField('get_links')

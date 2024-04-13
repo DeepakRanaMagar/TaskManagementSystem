@@ -1,14 +1,20 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.conf import settings
+from datetime import date
+from django.core.exceptions import ValidationError
 
 class Sprint(models.Model):
     name = models.CharField(max_length=50, null=True, default='')
     description = models.TextField(max_length=150, null=True, default='')
-    end_date = models.DateTimeField(unique=True)
+    end_date = models.DateField(unique=True)
 
     def __str__(self):
         return self.name or _('Sprint Ending %s')%self.end_date
+    
+    def clean(self):
+        if self.end_date<date.today():
+            raise ValidationError("Invalid Date Field.")
 
 class Task(models.Model):
     name = models.CharField(max_length=50)
