@@ -74,8 +74,8 @@ class SprintSerializer(serializers.ModelSerializer):
                     ) + '?sprint={}'.format(obj.pk),
         }
     
-    def validate_end_date(self, attrs):
-        end_date = attrs.get('end_date')
+    def validate_end_date(self, attrs, source='end_date'):
+        end_date = attrs[source]
         new = not self.object
         changed = self.object and self.object.end_date != end_date
         if(new or changed) and (end_date<date.today()):
