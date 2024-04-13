@@ -16,7 +16,7 @@ class Sprint(models.Model):
 class Task(models.Model):
     name = models.CharField(max_length=50)
     description = models.TextField(max_length=150, default='', null=True)
-    sprint = models.ForeignKey(Sprint, on_delete=models.CASCADE, null=True)
+    sprint = models.ForeignKey(Sprint, on_delete=models.CASCADE, null=True, blank=True)
 
 
     STATUS_TODO = 1

@@ -81,6 +81,7 @@ class SprintSerializer(serializers.ModelSerializer):
         '''
         if value < date.today():
             raise ValidationError("Invalid Date Field")
+        return value    
 
 
 class TaskSerializers(serializers.ModelSerializer):
