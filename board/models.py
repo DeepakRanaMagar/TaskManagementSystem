@@ -11,10 +11,7 @@ class Sprint(models.Model):
 
     def __str__(self):
         return self.name or _('Sprint Ending %s')%self.end_date
-    
-    def clean(self):
-        if self.end_date<date.today():
-            raise ValidationError("Invalid Date Field.")
+
 
 class Task(models.Model):
     name = models.CharField(max_length=50)

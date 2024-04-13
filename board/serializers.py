@@ -4,6 +4,7 @@ from django.contrib.auth import get_user_model
 from rest_framework.reverse import reverse
 from datetime import date
 from django.utils.translation import gettext_lazy as _
+from django.core.exceptions import ValidationError
 
 User = get_user_model()
 
@@ -74,13 +75,12 @@ class SprintSerializer(serializers.ModelSerializer):
                     ) + '?sprint={}'.format(obj.pk),
         }
     
-    def validate(self,attrs):
+    def validate_end_date(self,value):
         '''
             Validate the Sprint End_date
         '''
-        instance = Sprint(**attrs)
-        instance.clean()
-        return attrs
+        if value < date.today():
+            raise ValidationError("Invalid Date Field")
 
 
 class TaskSerializers(serializers.ModelSerializer):
