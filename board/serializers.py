@@ -140,4 +140,4 @@ class TaskSerializers(serializers.ModelSerializer):
                 if self.object.status == Task.STATUS_DONE:
                     msg = _('Sprint cannot be changed after task is Complete.')
                     raise serializers.ValidationError(msg)
-                if value.end_date
+                # if value.due_date and value < 

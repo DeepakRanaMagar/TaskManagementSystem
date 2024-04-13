@@ -35,9 +35,9 @@ class Task(models.Model):
     assigned = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE , null=True, blank=True)
     order = models.SmallIntegerField(default=0)
 
-    start_date = models.DateTimeField(null=True)
-    due_date = models.DateTimeField(null=True)
-    completed_date = models.DateTimeField(null=True)
+    start_date = models.DateField(null=True)
+    due_date = models.DateField(null=True)
+    completed_date = models.DateField(null=True)
 
     def __str__(self):
         return self.name
