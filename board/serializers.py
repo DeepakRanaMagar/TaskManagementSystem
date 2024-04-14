@@ -135,14 +135,36 @@ class TaskSerializers(serializers.ModelSerializer):
         return links
     
     def validate_sprint(self, value):
-        instance = self.instance
-        if instance and instance.pk:
-            if value != instance.sprint:
-                if instance.status == Task.STATUS_DONE:
-                    msg = _("Sprint cannot be changed after completion.")
-                    return serializers.ValidationError(msg)
-                
-                if instance and instance.due_date < date.today():
-                    msg = _("Invalid Task Due Date.")
-                    return serializers.ValidationError(msg)
-                
+        '''
+        Validating the sprint field
+        '''
+        if self.instance and self.instance.pk:
+            if value != self.instance.sprint:
+                    if self.instance.status == Task.STATUS_DONE:
+                        msg = _('Cannot change the sprint of a completed task.')
+                        raise serializers.ValidationError(msg)
+                    if value and value.end < date.today():
+                        msg = _('Cannot assign tasks to past sprints.')
+                        raise serializers.ValidationError(msg)
+            else:
+                if value and value.end < date.today():
+                    msg = _('Cannot add tasks to past sprints.')
+                    raise serializers.ValidationError(msg)
+            return value
+            
+    def validate(self, attrs):
+        sprint = attrs.get('sprint')
+        status = attrs.get('status')
+        start_date = attrs.get('start_date')
+        completed_date = attrs.get('completed_date')
+
+        if not sprint and status != Task.STATUS_TODO:
+            raise serializers.ValidationError(_('Task must be assigned to a sprint if status is not "TODO".'))
+        
+        if start_date and status != Task.STATUS_TODO:
+            raise serializers.ValidationError(_('Start Date cannot be assigned for a task that is not "TODO".'))
+
+        if completed_date and status != Task.STATUS_DONE:
+            raise serializers.ValidationError(_('Completed Date cannot be set for tasks that are not "DONE".'))
+
+        return attrs
