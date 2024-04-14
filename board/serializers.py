@@ -145,3 +145,4 @@ class TaskSerializers(serializers.ModelSerializer):
                 if instance and instance.due_date < date.today():
                     msg = _("Invalid Task Due Date.")
                     return serializers.ValidationError(msg)
+                
