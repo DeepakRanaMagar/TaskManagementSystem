@@ -135,9 +135,13 @@ class TaskSerializers(serializers.ModelSerializer):
         return links
     
     def validate_sprint(self, value):
-        if self.object and self.object.pk: 
-            if value != self.object.value:
-                if self.object.status == Task.STATUS_DONE:
-                    msg = _('Sprint cannot be changed after task is Complete.')
-                    raise serializers.ValidationError(msg)
-                # if value.due_date and value < 
+        instance = self.instance
+        if instance and instance.pk:
+            if value != instance.sprint:
+                if instance.status == Task.STATUS_DONE:
+                    msg = _("Sprint cannot be changed after completion.")
+                    return serializers.ValidationError(msg)
+                
+                if instance and instance.due_date < date.today():
+                    msg = _("Invalid Task Due Date.")
+                    return serializers.ValidationError(msg)
