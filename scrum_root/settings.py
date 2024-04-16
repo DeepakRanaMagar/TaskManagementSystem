@@ -41,10 +41,21 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
+    'drf_spectacular',
     'django_filters',
 
     'board.apps.BoardConfig', #App
 ]
+
+REST_FRAMEWORK = {
+    "DEFAULT_SCHEMA_CLASS" : "drf_spectacular.openapi.AutoSchema",
+}
+
+SPECTACULAR_SETTINGS = {
+    "TITLE": "Task Management System",
+    "DESCRIPTION": "This is a task management system endpoints",
+}
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
