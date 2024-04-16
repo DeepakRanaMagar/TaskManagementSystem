@@ -12,7 +12,7 @@ urlpatterns = [
     path('api/', include('board.urls')),
     path('api/token/', obtain_auth_token, name="API_Token"),
     path('api/schema/', SpectacularAPIView.as_view(), name="EndpointsSchema"),
-    path('api/schema/swagger/', SpectacularSwaggerView.as_view(url_name='EndpointsSchema'), name="swagger")
+    path('', SpectacularSwaggerView.as_view(url_name='EndpointsSchema'), name="swagger")
 
 ]
 
